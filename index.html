@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day13_assign3</title>
+    <style>
+        h1 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        #add {
+            padding: 2px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        input::placeholder {
+            text-align: start;
+            font-size: 15px;
+        }
+
+        .output {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #outp {
+            font-size: 20px;
+            width: 50%;
+            background-color: lightgrey;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>To-Do List</h1>
+    </div>
+    <div style="text-align: center;">
+        <input type="text" id="ins" placeholder="Enter a new task">
+        <input type="submit" id="add" value="Add">
+    </div>
+    <div class="output">
+        <ol id="outp"></ol>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inp = document.getElementById("ins");
+            const outt = document.getElementById("outp");
+            const addbtn = document.getElementById("add");
+
+            let i = 1;
+
+            function handleaction() {
+                const inm = inp.value.trim();
+                if (inm !== "") {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span>${i}. ${inm}</span>`;
+
+                    const delBtn = document.createElement("button");
+                    delBtn.textContent = "Delete";
+                    delBtn.className = "delete-btn";
+
+                    delBtn.addEventListener("click", function () {
+                        li.remove();
+                    });
+
+                    li.appendChild(delBtn);
+                    outt.appendChild(li);
+                    inp.value = "";
+                    i++;
+                }
+            }
+
+            inp.addEventListener('keydown', function (event) {
+                if (event.key === "Enter") {
+                    handleaction();
+                }
+            });
+
+            addbtn.addEventListener('click', handleaction);
+        });
+    </script>
+</body>
+</html>
